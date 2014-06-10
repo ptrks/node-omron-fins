@@ -27,20 +27,6 @@ npm install git://github.com/patrick/node-omron-fins
 ```
 
 
-###Logging Data & Troubleshooting
-Once you have Wirshark installed it is very simple to analyze your OMRON FINS traffic:
-
-Simply select your network interface and then hit "Start"
-![Interface](http://i.imgur.com/9K8u9pB.png "Select interface and hit start")
-
-Once in Wireshark change your filter to "omron"
-![Filter](http://i.imgur.com/j3GxeJn.png "Change filter")
-
-Now you can examine each FINS packet individually
-![Filter](http://i.imgur.com/3Wjpbqf.png "Examine Packet")
-
-
-
 ###Basic Usage
 Bare bones example that will show you how to read data from a single client.
 
@@ -160,4 +146,14 @@ pollUnits();
 
 ```
 
+###Logging Data & Troubleshooting
+Once you have Wirshark installed it is very simple to analyze your OMRON FINS traffic:
 
+Simply select your network interface and then hit "Start"
+![Interface](http://i.imgur.com/9K8u9pB.png "Select interface and hit start")
+
+Once in Wireshark change your filter to "omron"
+![Filter](http://i.imgur.com/j3GxeJn.png "Change filter")
+
+Now you can examine each FINS packet individually
+![Filter](http://i.imgur.com/3Wjpbqf.png "Examine Packet")
