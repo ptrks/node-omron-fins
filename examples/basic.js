@@ -22,7 +22,10 @@ client.on('reply',function(msg) {
 
 
 /* Read 10 registers starting at DM register 00000 */
-client.read('D00000',10);
+client.read('D00000',10,function(err,bytes) {
+	console.log("Bytes: ", bytes);
+
+});
 
 /* Write 1337 to DM register 00000 */
 client.write('D00000',1337)

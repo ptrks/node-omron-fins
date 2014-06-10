@@ -9,26 +9,56 @@ This is an implementation of the [OMRON FINS protocol](https://www.google.com/se
 Memory Area Read Command 
 * `address` - Memory area and the numerical start address
 * `regsToRead` - Number of registers to read
-* `callback` - Optional callback method
+* `callback` - Optional callback method 
 
 ```js
  /* Reads 10 registers starting from register 00000 in the DM Memory Area */
 .read('D00000',10);
+
+/* Same as above with callback */
+client.read('D00000',10,function(err,bytes) {
+	console.log("Bytes: ", bytes);
+});
 ```
 
 #####.write(address, dataToBeWritten, callback)
 Memory Area Write Command
 * `address` - Memory area and the numerical start address
 * `dataToBeWritten` - An array of values or single value
+* `callback` - Optional callback method 
 ```js
 /* Writes single value of 1337 into DM register 00000 */
 .write('D00000',1337)
 
 /* Writes the values 12,34,56 into DM registers 00000 00001 000002 */
 .write('D00000',[12,34,56]);
+
+
+/* Same as above with callback */
+.write('D00000',[12,34,56],function(err,bytes) {
+	console.log("Bytes: ", bytes);
+});
 ```
 
+#####.fill(address, dataToBeWritten, regsToBeWritten, callback)
+Memory Area Fill Command
+* `address` - Memory area and the numerical start address
+* `dataToBeWritten` - Two bytes of data to be filled
+* `regsToBeWritten` - Number of registers to write
+* `callback` - Optional callback method
+```js
 
+/* Writes 1337 in 10 consecutive DM registers from 00100 to 00110 */
+.fill('D00100',1337,10);
+
+
+/* Sames as above with callback */
+.fill('D00100',1337,10,function(err,bytes) {
+	console.log("Bytes: ", bytes); 
+});
+
+
+```
 
 
 ###Prerequisites
