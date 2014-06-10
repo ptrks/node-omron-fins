@@ -26,6 +26,21 @@ cd helloFins
 npm install git://github.com/patrick/node-omron-fins   
 ```
 
+
+###Logging Data & Troubleshooting
+Once you have Wirshark installed it is very simple to analyze your OMRON FINS traffic:
+
+Simply select your network interface and then hit "Start"
+![Interface](http://i.imgur.com/9K8u9pB.png "Select interface and hit start")
+
+Once in Wireshark change your filter to "omron"
+![Filter](http://i.imgur.com/j3GxeJn.png "Change filter")
+
+Now you can examine each FINS packet individually
+![Filter](http://i.imgur.com/3Wjpbqf.png "Examine Packet")
+
+
+
 ###Basic Usage
 Bare bones example that will show you how to read data from a single client.
 
@@ -77,22 +92,13 @@ var responses = [];
 	More than likely will be generated from external source
 */
 
-var remoteHosts = [
-'127.0.0.1',
-'127.0.0.2',
-'127.0.0.3'
-];
+var remoteHosts = ['127.0.0.1','127.0.0.2','127.0.0.3'];
 
 
 /*
 	This method will be executed once we know all communications 
-	have either timed out or responded accordingly.
-
-	This is where you would put processing methods that would:
-	- send data via an API
-	- log data to disk
-	- process data into db
-	- check for alarm states / other conditions
+	have either timed out or responded accordingly. This is where
+	data will be processed (database,api,etc)
 
 */
 
