@@ -3,14 +3,33 @@ node-omron-fins
 ###Overview
 This is an implementation of the [OMRON FINS protocol](https://www.google.com/search?q=omrin+fins&oq=omrin+fins&aqs=chrome..69i57j0l5.945j0j7&sourceid=chrome&es_sm=93&ie=UTF-8#q=omron+fins&spell=1) using Node.js. This library allows for rapid development of network based services that need to communicate with FINS capable devices. Utilizing the awesome asynchronous abilities of Node.js communication with large numbers of devices is very fast. UDP was chosen as the first variant of the protocol to be implemented because of its extremely low overhead and performance advantages. Although UDP is connectionless this library makes use of software based timeouts and transaction identifiers to allow for better reliability. 
 
+###Supported Commands:
 
-This initial release has limited features:
+#####.read(address, regsToRead, callback)
+Memory Area Read Command 
+* `address` - Memory area and the numerical start address
+* `regsToRead` - Number of registers to read
+* `callback` - Optional callback method
 
-* UDP is only supported
-* Memory Area Read is currently the only available command
-* Limited to reading from the DM (0x82) area
- 
-These limitations will shrink considerably with the next release. 
+```js
+ /* Reads 10 registers starting from register 00000 in the DM Memory Area */
+.read('D00000',10);
+```
+
+#####.write(address, dataToBeWritten, callback)
+Memory Area Write Command
+* `address` - Memory area and the numerical start address
+* `dataToBeWritten` - An array of values or single value
+```js
+/* Writes single value of 1337 into DM register 00000 */
+.write('D00000',1337)
+
+/* Writes the values 12,34,56 into DM registers 00000 00001 000002 */
+.write('D00000',[12,34,56]);
+```
+
+
+
 
 ###Prerequisites
 * [Install Node.js](http://howtonode.org/how-to-install-nodejs) (Contains installation instructions for Windows, Linux and Mac)
