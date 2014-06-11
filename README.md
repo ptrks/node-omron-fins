@@ -108,35 +108,19 @@ client.read('D00000',10);
 
 
 ###Multiple Clients  
-Example of instantiating multiple objects to allow for asynchronous communications. Because this code doesn't wait for a response from any client before sending/receiving packets it is incredibly fast.
+Example of instantiating multiple objects to allow for asynchronous communications. Because this code doesn't wait for a response from any client before sending/receiving packets it is incredibly fast. In this example we attempt to read a memory area from a list of remote hosts. Each command will either return with a response or timeout. Every transaction will be recorded to the `responses` array with the `ip` as a key and the `msg.values` as the associated value. If a timeout occurs the value for that transaction will be set to null. Once the size of the responses array is equal to the number of units we tried to communicate with we know we have gotten a response or timeout from every unit
 
 
 ```js
 var fins = require('omron-fins');
-
 var debug = true;
-
-/* Hold our FinsClient objects */
 var clients = [];
-
-/* Hold both successful and failed communication attempts */
 var responses = [];
 
-/* 
-	List of remote hosts
-	More than likely will be generated from external source
-*/
-
+/* List of remote hosts can be generated from local or remote resource */
 var remoteHosts = ['127.0.0.1','127.0.0.2','127.0.0.3'];
 
-
-/*
-	This method will be executed once we know all communications 
-	have either timed out or responded accordingly. This is where
-	data will be processed (database,api,etc)
-
-*/
-
+/ * Data is ready to be processed (sent to API,DB,etc) */
 var finished = function(responses) {
 	console.log("All responses and or timeouts received");
 	console.log(responses);
@@ -150,12 +134,8 @@ var pollUnits = function() {
     var options = {timeout:10000};
 	for (var i in remoteHosts) {
 
-		/*
-			Add each client to the FinsClient object array
-			Each FinsClient object using default timeout and currently iterated IP
-		*/
+	        / * Add key value entry into responses array */
 		clients[i] = fins.FinsClient(9600,remoteHosts[i],options);
-
 		clients[i].on('reply',function(msg) {
 			/* Add key value pair of [ipAddress] = values from read */
 			responses[msg.remotehost] = msg.values;
@@ -179,7 +159,6 @@ var pollUnits = function() {
 
 		clients[i].on('error',function(error) {
 			console.log("Error: ", error)
-
 		});
 
 		/* Read 10 registers starting at DM location 00000 */
@@ -187,8 +166,6 @@ var pollUnits = function() {
 
 	};
 };
-
-
 
 console.log("Starting.....");
 pollUnits();
@@ -206,3 +183,5 @@ Once in Wireshark change your filter to "omron"
 
 Now you can examine each FINS packet individually
 ![Filter](http://i.imgur.com/3Wjpbqf.png "Examine Packet")
+
+
