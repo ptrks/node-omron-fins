@@ -78,6 +78,20 @@ RUN
 
 ```
 
+#####.stop(callback)
+STOP
+* `callback` Optional callback
+
+```js
+
+/* Stops program excution by putting into Program mode */
+.stop(function(err,bytes) {
+
+});
+
+.stop();
+```
+
 
 ###Prerequisites
 * [Install Node.js](http://howtonode.org/how-to-install-nodejs) (Contains installation instructions for Windows, Linux and Mac)
