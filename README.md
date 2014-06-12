@@ -61,6 +61,24 @@ Memory Area Fill Command
 ```
 
 
+#####.run(mode,callback)
+RUN
+* `mode` - Run mode. Options: `Debug`, `Run`, `Monitor` - Defaults to `Monitor`
+* `callback` Optional callback
+```js
+
+/* Changing Run modes */
+.run('Monitor',function(err,bytes) {
+
+});
+
+.run('Debug');
+.run('Run');
+.run();
+
+```
+
+
 ###Prerequisites
 * [Install Node.js](http://howtonode.org/how-to-install-nodejs) (Contains installation instructions for Windows, Linux and Mac)
 * [Install Wireshark](http://www.wireshark.org/download.html) (This will allow you to see monitor FINS communication)
