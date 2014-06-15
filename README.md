@@ -3,52 +3,11 @@ node-omron-fins
 ###Overview
 This is an implementation of the [OMRON FINS protocol](https://www.google.com/search?q=omrin+fins&oq=omrin+fins&aqs=chrome..69i57j0l5.945j0j7&sourceid=chrome&es_sm=93&ie=UTF-8#q=omron+fins&spell=1) using Node.js. This library allows for rapid development of network based services that need to communicate with FINS capable devices. Utilizing the awesome asynchronous abilities of Node.js communication with large numbers of devices is very fast. UDP was chosen as the first variant of the protocol to be implemented because of its extremely low overhead and performance advantages. Although UDP is connectionless this library makes use of software based timeouts and transaction identifiers to allow for better reliability. 
 
-======
+###Supported Commands:
 
-###Supported Commands
-* Memory area read
-* Memory area write
-* Memory area fill
-* Controller status read
-* Run
-* Stop
-
-
-======
-
-###Prerequisites
-* [Install Node.js](http://howtonode.org/how-to-install-nodejs) (Contains installation instructions for Windows, Linux and Mac)
-* [Install Wireshark](http://www.wireshark.org/download.html) (This will allow you to see monitor FINS communication)
-
-
-======
-
-###Install
-As an example we will be making a directory for our example code and installing the module there:
-```sh
-mkdir helloFins
-cd helloFins
-npm install git://github.com/patrick/node-omron-fins   
-```
-
-======
-
-###Basics
-When your script sends a command the results will be available as soon as the target responds via the `.on('reply')` event. The `reply` event will give you access to the properties of a response. The accessible properties of the reply will vary depending on the command issued, however every response will have a few default properties:
-
-* `remotehost` - IP address of responding host
-* `command` - Command code issued
-* `response` - Response code of command
-
-======
-
-
-
-###Usage
-#####Memory Area Read Command 
-Parameters
-
-
+#####.read(address, regsToRead, callback)
+Memory Area Read Command 
+* `address` - Memory area and the numerical start address
 * `regsToRead` - Number of registers to read
 * `callback` - Optional callback method 
 
@@ -131,13 +90,25 @@ STOP
 });
 
 .stop();
-
-
-
 ```
 
 
-###Basic Example
+###Prerequisites
+* [Install Node.js](http://howtonode.org/how-to-install-nodejs) (Contains installation instructions for Windows, Linux and Mac)
+* [Install Wireshark](http://www.wireshark.org/download.html) (This will allow you to see monitor FINS communication)
+
+
+
+###Install
+As an example we will be making a directory for our example code and installing the module there:
+```sh
+mkdir helloFins
+cd helloFins
+npm install git://github.com/patrick/node-omron-fins   
+```
+
+
+###Basic Usage
 Bare bones example that will show you how to read data from a single client.
 
 ```js
@@ -168,7 +139,7 @@ client.read('D00000',10);
 ```
 
 
-###Multiple Clients Example
+###Multiple Clients  
 Example of instantiating multiple objects to allow for asynchronous communications. Because this code doesn't wait for a response from any client before sending/receiving packets it is incredibly fast. In this example we attempt to read a memory area from a list of remote hosts. Each command will either return with a response or timeout. Every transaction will be recorded to the `responses` array with the `ip` as a key and the `msg.values` as the associated value. If a timeout occurs the value for that transaction will be set to null. Once the size of the responses array is equal to the number of units we tried to communicate with we know we have gotten a response or timeout from every unit
 
 
@@ -244,5 +215,4 @@ Once in Wireshark change your filter to "omron"
 
 Now you can examine each FINS packet individually
 ![Filter](http://i.imgur.com/3Wjpbqf.png "Examine Packet")
-
 
