@@ -3,7 +3,63 @@ node-omron-fins
 ###Overview
 This is an implementation of the [OMRON FINS protocol](https://www.google.com/search?q=omrin+fins&oq=omrin+fins&aqs=chrome..69i57j0l5.945j0j7&sourceid=chrome&es_sm=93&ie=UTF-8#q=omron+fins&spell=1) using Node.js. This library allows for rapid development of network based services that need to communicate with FINS capable devices. Utilizing the awesome asynchronous abilities of Node.js communication with large numbers of devices is very fast. UDP was chosen as the first variant of the protocol to be implemented because of its extremely low overhead and performance advantages. Although UDP is connectionless this library makes use of software based timeouts and transaction identifiers to allow for better reliability. 
 
+======
+
 ###Supported Commands:
+
+* Memory area read
+* Memory area write
+* Memory area fill
+* Controller status read
+* Run
+* Stop
+
+
+======
+
+
+###Prerequisites
+* [Install Node.js](http://howtonode.org/how-to-install-nodejs) (Contains installation instructions for Windows, Linux and Mac)
+* [Install Wireshark](http://www.wireshark.org/download.html) (This will allow you to see monitor FINS communication)
+
+
+
+###Install
+As an example we will be making a directory for our example code and installing the module there:
+```sh
+mkdir helloFins
+cd helloFins
+npm install git://github.com/patrick/node-omron-fins   
+```
+
+======
+
+###Usage
+Requiring the library:
+```js
+var fins = require('omron-fins');
+```
+
+
+Create a `FinsClient` object and pass it:
+*  `port`
+* `ip`
+* `options` array with timeout value in ms. (default timeout is 2 seconds) 
+```js
+var options = {timeout:10000};
+var client = fins.FinsClient(9600,'127.0.0.1');
+```
+
+Add a reply listener:
+```js
+client.on('reply',msg){
+	console.log('Msg: ',msg);
+});
+```
+Call any commands you want!
+
+
+
 
 #####.read(address, regsToRead, callback)
 Memory Area Read Command 
@@ -61,20 +117,15 @@ Memory Area Fill Command
 ```
 
 
-#####.run(mode,callback)
+#####.run(callback)
 RUN
-* `mode` - Run mode. Options: `Debug`, `Run`, `Monitor` - Defaults to `Monitor`
 * `callback` Optional callback
 ```js
-
-/* Changing Run modes */
-.run('Monitor',function(err,bytes) {
+/* Puts into Monitor mode */
+.run(function(err,bytes) {
 
 });
 
-.run('Debug');
-.run('Run');
-.run();
 
 ```
 
@@ -93,22 +144,11 @@ STOP
 ```
 
 
-###Prerequisites
-* [Install Node.js](http://howtonode.org/how-to-install-nodejs) (Contains installation instructions for Windows, Linux and Mac)
-* [Install Wireshark](http://www.wireshark.org/download.html) (This will allow you to see monitor FINS communication)
+
+======
 
 
-
-###Install
-As an example we will be making a directory for our example code and installing the module there:
-```sh
-mkdir helloFins
-cd helloFins
-npm install git://github.com/patrick/node-omron-fins   
-```
-
-
-###Basic Usage
+###Basic Example
 Bare bones example that will show you how to read data from a single client.
 
 ```js
@@ -137,6 +177,7 @@ client.read('D00000',10);
 
 
 ```
+======
 
 
 ###Multiple Clients  
@@ -203,6 +244,7 @@ console.log("Starting.....");
 pollUnits();
 
 ```
+======
 
 ###Logging Data & Troubleshooting
 Once you have Wirshark installed it is very simple to analyze your OMRON FINS traffic:
@@ -215,5 +257,4 @@ Once in Wireshark change your filter to "omron"
 
 Now you can examine each FINS packet individually
 ![Filter](http://i.imgur.com/3Wjpbqf.png "Examine Packet")
-
 
