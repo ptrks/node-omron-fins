@@ -14,9 +14,7 @@
     "Automation",
     "Industrial"
   ],
-  "dependencies": {
-    "mysql": "~2.0.1"
-  },
+  "dependencies": {},
   "readme": "node-omron-fins\n===============\n\nAn implementation of the Omron FINS library for node js\n",
   "readmeFilename": "README.md",
   "_id": "omron-fins@0.0.1",
