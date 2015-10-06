@@ -50,13 +50,27 @@ var options = {timeout:10000};
 var client = fins.FinsClient(9600,'127.0.0.1');
 ```
 
-Add a reply listener:
+Add a reply listener. Response object content will vary depending on the command issued. However all responses are guaranteed to contain the following information:
+
+
+* `.sid` - Transaction identifier. Use this to track specific command/ response pairs.
+* `.command` - The issued command code.
+* `.response` - The response code returned after attempting to issue a command.
+* `.remotehost` - The IP address the response was sent from.
+
 ```js
 client.on('reply',msg){
-	console.log('Msg: ',msg);
+	console.log('SID: ', msg.sid);
+	console.log('Command Code: ', msg.command);
+	console.log('Response Code: ', msg.response);
+	console.log('Remote Host: ', msg.remotehost);
 });
 ```
-Call any commands you want!
+
+
+
+
+Finally, call any of the supported commands! 
 
 
 
@@ -165,7 +179,8 @@ client.on('error',function(error) {
 // Setting up the response listener
 // Showing properties of a response
 client.on('reply',function(msg) {
-  console.log("Reply from: ", msg.remotehost);
+  	console.log("Reply from: ", msg.remotehost);
+  	console.log("Transaction SID: ", msg.sid)
 	console.log("Replying to issued command of: ", msg.command);
 	console.log("Response code of: ", msg.code);
 	console.log("Data returned: ", msg.values);
