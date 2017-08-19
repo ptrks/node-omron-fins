@@ -3,7 +3,6 @@ node-omron-fins
 ### Overview
 This is an implementation of the [OMRON FINS protocol](https://www.google.com/search?q=omrin+fins&oq=omrin+fins&aqs=chrome..69i57j0l5.945j0j7&sourceid=chrome&es_sm=93&ie=UTF-8#q=omron+fins&spell=1) using Node.js. This library allows for rapid development of network based services that need to communicate with FINS capable devices. Utilizing the awesome asynchronous abilities of Node.js communication with large numbers of devices is very fast. UDP was chosen as the first variant of the protocol to be implemented because of its extremely low overhead and performance advantages. Although UDP is connectionless this library makes use of software based timeouts and transaction identifiers to allow for better reliability. 
 
-======
 
 ### Supported Commands:
 
@@ -14,8 +13,6 @@ This is an implementation of the [OMRON FINS protocol](https://www.google.com/se
 * Run
 * Stop
 
-
-======
 
 
 ### Prerequisites
@@ -31,8 +28,6 @@ mkdir helloFins
 cd helloFins
 npm install git://github.com/patrick--/node-omron-fins.git
 ```
-
-======
 
 ### Usage
 Requiring the library:
@@ -192,7 +187,6 @@ client.read('D00000',10);
 
 
 ```
-======
 
 
 ### Multiple Clients  
@@ -259,7 +253,6 @@ console.log("Starting.....");
 pollUnits();
 
 ```
-======
 
 ### Logging Data & Troubleshooting
 Once you have Wirshark installed it is very simple to analyze your OMRON FINS traffic:
