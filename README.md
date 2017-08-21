@@ -1,11 +1,10 @@
 node-omron-fins
 ===============
-###Overview
+### Overview
 This is an implementation of the [OMRON FINS protocol](https://www.google.com/search?q=omrin+fins&oq=omrin+fins&aqs=chrome..69i57j0l5.945j0j7&sourceid=chrome&es_sm=93&ie=UTF-8#q=omron+fins&spell=1) using Node.js. This library allows for rapid development of network based services that need to communicate with FINS capable devices. Utilizing the awesome asynchronous abilities of Node.js communication with large numbers of devices is very fast. UDP was chosen as the first variant of the protocol to be implemented because of its extremely low overhead and performance advantages. Although UDP is connectionless this library makes use of software based timeouts and transaction identifiers to allow for better reliability. 
 
-======
 
-###Supported Commands:
+### Supported Commands:
 
 * Memory area read
 * Memory area write
@@ -15,26 +14,22 @@ This is an implementation of the [OMRON FINS protocol](https://www.google.com/se
 * Stop
 
 
-======
 
-
-###Prerequisites
+### Prerequisites
 * [Install Node.js](http://howtonode.org/how-to-install-nodejs) (Contains installation instructions for Windows, Linux and Mac)
 * [Install Wireshark](http://www.wireshark.org/download.html) (This will allow you to see monitor FINS communication)
 
 
 
-###Install
+### Install
 As an example we will be making a directory for our example code and installing the module there:
 ```sh
 mkdir helloFins
 cd helloFins
-npm install git://github.com/patrick/node-omron-fins   
+npm install git://github.com/patrick--/node-omron-fins.git
 ```
 
-======
-
-###Usage
+### Usage
 Requiring the library:
 ```js
 var fins = require('omron-fins');
@@ -75,7 +70,7 @@ Finally, call any of the supported commands!
 
 
 
-#####.read(address, regsToRead, callback)
+##### .read(address, regsToRead, callback)
 Memory Area Read Command 
 * `address` - Memory area and the numerical start address
 * `regsToRead` - Number of registers to read
@@ -91,7 +86,7 @@ client.read('D00000',10,function(err,bytes) {
 });
 ```
 
-#####.write(address, dataToBeWritten, callback)
+##### .write(address, dataToBeWritten, callback)
 Memory Area Write Command
 * `address` - Memory area and the numerical start address
 * `dataToBeWritten` - An array of values or single value
@@ -110,7 +105,7 @@ Memory Area Write Command
 });
 ```
 
-#####.fill(address, dataToBeWritten, regsToBeWritten, callback)
+##### .fill(address, dataToBeWritten, regsToBeWritten, callback)
 Memory Area Fill Command
 * `address` - Memory area and the numerical start address
 * `dataToBeWritten` - Two bytes of data to be filled
@@ -131,7 +126,7 @@ Memory Area Fill Command
 ```
 
 
-#####.run(callback)
+##### .run(callback)
 RUN
 * `callback` Optional callback
 ```js
@@ -143,7 +138,7 @@ RUN
 
 ```
 
-#####.stop(callback)
+##### .stop(callback)
 STOP
 * `callback` Optional callback
 
@@ -162,7 +157,7 @@ STOP
 ======
 
 
-###Basic Example
+### Basic Example
 Bare bones example that will show you how to read data from a single client.
 
 ```js
@@ -192,10 +187,9 @@ client.read('D00000',10);
 
 
 ```
-======
 
 
-###Multiple Clients  
+### Multiple Clients  
 Example of instantiating multiple objects to allow for asynchronous communications. Because this code doesn't wait for a response from any client before sending/receiving packets it is incredibly fast. In this example we attempt to read a memory area from a list of remote hosts. Each command will either return with a response or timeout. Every transaction will be recorded to the `responses` array with the `ip` as a key and the `msg.values` as the associated value. If a timeout occurs the value for that transaction will be set to null. Once the size of the responses array is equal to the number of units we tried to communicate with we know we have gotten a response or timeout from every unit
 
 
@@ -259,9 +253,8 @@ console.log("Starting.....");
 pollUnits();
 
 ```
-======
 
-###Logging Data & Troubleshooting
+### Logging Data & Troubleshooting
 Once you have Wirshark installed it is very simple to analyze your OMRON FINS traffic:
 
 Simply select your network interface and then hit "Start"
