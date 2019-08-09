@@ -14,7 +14,7 @@ client.on('error',function(error) {
 */
 
 client.on('reply',function(msg) {
-  console.log("Reply from: ", msg.remotehost);
+    console.log("Reply from: ", msg.remotehost);
     console.log("Replying to issued command of: ", msg.command);
     console.log("Response code of: ", msg.code);
     console.log("Data returned: ", msg.values);
@@ -24,7 +24,11 @@ client.on('reply',function(msg) {
 /* Read 10 registers starting at DM register 00000 */
 client.read('D00000',10,function(err,bytes) {
 	console.log("Bytes: ", bytes);
+});
 
+/* Read CIO bit 1.00 */
+client.read('CB1:00',1,function(err,bytes) {
+	console.log("Bytes: ", bytes);
 });
 
 /* Write 1337 to DM register 00000 */
