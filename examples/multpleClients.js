@@ -1,4 +1,4 @@
-ar fins = require('../lib/index');
+var fins = require('../lib/index');
 
 var debug = true;
 
