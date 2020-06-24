@@ -7,6 +7,7 @@ This is an implementation of the [OMRON FINS protocol](https://www.google.com/se
 ### Supported Commands:
 
 * Memory area read
+* Multiple memory area read
 * Memory area write
 * Memory area fill
 * Controller status read
@@ -84,6 +85,16 @@ Memory Area Read Command
 client.read('D00000',10,function(err,bytes) {
 	console.log("Bytes: ", bytes);
 });
+```
+
+##### .readMultiple(address(es))
+Multiple Memory Area Read Command 
+* `address` - Memory area and the numerical start address
+
+```js
+ /* Reads multiple registers from different memory areas, you can mix and match words and bit reads */
+.readMultiple('D100','H10','CB80:03','H22');
+
 ```
 
 ##### .write(address, dataToBeWritten, callback)

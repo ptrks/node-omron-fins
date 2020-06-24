@@ -31,6 +31,9 @@ client.read('CB1:00',1,function(err,bytes) {
 	console.log("Bytes: ", bytes);
 });
 
+/* Read WORDS or BITS from multiple memory address in one command */
+client.readMultiple('H18','W32','H20','CB80:03','H22');
+
 /* Write 1337 to DM register 00000 */
 client.write('D00000',1337)
 
