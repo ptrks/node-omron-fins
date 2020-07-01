@@ -8,7 +8,7 @@ var clients = [];
 /* Hold both successful and failed communication attempts */
 var responses = [];
 
-/* 
+/*
     List of remote hosts
     More than likely will be generated from external source
 */
@@ -17,7 +17,7 @@ var remoteHosts = ['127.0.0.1','127.0.0.2','127.0.0.3'];
 
 
 /*
-    This method will be executed once we know all communications 
+    This method will be executed once we know all communications
     have either timed out or responded accordingly. This is where
     data will be processed (database,api,etc)
 

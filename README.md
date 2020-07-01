@@ -7,8 +7,10 @@ This is an implementation of the [OMRON FINS protocol](https://www.google.com/se
 ### Supported Commands:
 
 * Memory area read
+* Multiple memory area read
 * Memory area write
 * Memory area fill
+* Memory area transfer
 * Controller status read
 * Run
 * Stop
@@ -86,6 +88,17 @@ client.read('D00000',10,function(err,bytes) {
 });
 ```
 
+##### .readMultiple(address(es))
+Multiple Memory Area Read Command 
+* `address` - Memory area and the numerical start address
+
+```js
+ /* Reads multiple registers from different memory areas, you can mix and match words and bit reads. 
+    Does not currently support callback  */
+.readMultiple('D100','H10','CB80:03','H22');
+
+```
+
 ##### .write(address, dataToBeWritten, callback)
 Memory Area Write Command
 * `address` - Memory area and the numerical start address
@@ -95,16 +108,41 @@ Memory Area Write Command
 /* Writes single value of 1337 into DM register 00000 */
 .write('D00000',1337)
 
+/* Writes 1 to bit 3 of HB register 50 */
+.write('HB50:03',1)
+
 /* Writes the values 12,34,56 into DM registers 00000 00001 000002 */
 .write('D00000',[12,34,56]);
-
 
 /* Same as above with callback */
 .write('D00000',[12,34,56],function(err,bytes) {
 	console.log("Bytes: ", bytes);
 });
+
+/* Writes 1 to bits 3,4 & 5 of HB register 50 */
+.write('HB50:03',[1,1,1])
+
 ```
 
+##### .transfer(soureceAddress, destAddress, regsToBeWritten, callback)
+Memory Area Transfer Command
+* `sourceAddress` - Memory area and the numerical start address of the source
+* `destAddress` - Memory area and the numerical start address of the destination
+* `regsToBeWritten` - Number of registers to write
+* `callback` - Optional callback method
+```js
+
+/* Transfers 10 consecutive DM registers from 50 to 100 */
+.fill('D50','D100',10);
+
+
+/* Sames as above with callback */
+.fill('D50','D100',10,function(err,bytes) {
+	console.log("Bytes: ", bytes); 
+});
+
+
+```
 ##### .fill(address, dataToBeWritten, regsToBeWritten, callback)
 Memory Area Fill Command
 * `address` - Memory area and the numerical start address
