@@ -16,7 +16,7 @@ client.on('error',function(error) {
 client.on('reply',function(msg) {
     console.log("Reply from: ", msg.remotehost);
     console.log("Replying to issued command of: ", msg.command);
-    console.log("Response code of: ", msg.code);
+    console.log("Response code of: ", msg.response);
     console.log("Data returned: ", msg.values);
 });
 
